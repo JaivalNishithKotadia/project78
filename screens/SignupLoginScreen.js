@@ -20,7 +20,7 @@ export default class SignupLoginScreen extends React.Component {
     this.state = {
       emailId: '',
       password: '',
-      isVisible:false,
+      isVisible:'false',
       firstName:'',
       lastName:'',
       address:'',
@@ -35,7 +35,7 @@ export default class SignupLoginScreen extends React.Component {
       firebase
       .auth()
       .createUserWithEmailAndPassword(emailId, password)
-      .then((response) => {
+      .then(() => {
         db.collection('users').add({
           'first_name':this.state.firstName,
           'last_name':this.state.lastName,
@@ -51,7 +51,7 @@ export default class SignupLoginScreen extends React.Component {
           ]
         );
       })
-      .catch(function (error) {
+      .catch((error) =>{
         var errorCode = error.code;
         var errorMessage = error.message;
         return Alert.alert(errorMessage);
@@ -67,8 +67,8 @@ export default class SignupLoginScreen extends React.Component {
         return Alert.alert('Successfully Logged In');
       })
       .catch((error) => {
-        var errorCode = error.code();
-        var errorMessage = error.message();
+        var errorCode = error.code;
+        var errorMessage = error.message;
         return Alert.alert(errorMessage);
       });
       
@@ -89,7 +89,7 @@ export default class SignupLoginScreen extends React.Component {
               <TextInput
                 style={styles.formTextInput}
                 placeholder={'First Name'}
-                maxLength={8}
+                maxLength={10}
                 onChangeText={(text) => {
                   this.setState({ firstName: text });
                 }}
@@ -97,7 +97,7 @@ export default class SignupLoginScreen extends React.Component {
               <TextInput
                 style={styles.formTextInput}
                 placeholder={'Last Name'}
-                maxLength={8}
+                maxLength={10}
                 onChangeText={(text) => {
                   this.setState({ lastName: text });
                 }}
@@ -147,7 +147,7 @@ export default class SignupLoginScreen extends React.Component {
                 <TouchableOpacity
                   style={styles.registerButton}
                   onPress={() => {
-                    this.toggleModal()
+                    
                     this.userSignUp(
                       this.state.emailId,
                       this.state.password,
@@ -175,7 +175,7 @@ export default class SignupLoginScreen extends React.Component {
   render() {
     return (
       <View style={{ backgroundColor: '#FFE0B2' }}>
-        {this.showModal()}
+        <View>{this.showModal()}</View>
         <View style={{ backgroundColor: '#FFE0B2' }}>
           <ExchangeClass/>
           <Text style={styles.title}>Barter</Text>
@@ -221,7 +221,7 @@ export default class SignupLoginScreen extends React.Component {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-             this.showModal()
+             this.setState({isVisible:true})
             }}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
